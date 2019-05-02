@@ -1,4 +1,4 @@
-package com.rest.domain;
+package com.rest.Register.domain;
 
 
 
