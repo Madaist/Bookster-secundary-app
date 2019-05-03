@@ -1,11 +1,13 @@
 package com.rest.Register.controllers;
 
 import com.rest.Register.domain.Booking;
+import com.rest.Register.domain.Booking1;
 import com.rest.Register.domain.CompositePK;
 import com.rest.Register.domain.User;
 import com.rest.Register.services.BookingService;
 import com.rest.Register.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -46,11 +48,19 @@ public class RegisterPageCotroller {
         return new ResponseEntity<>(booking, HttpStatus.OK);
     }*/
 
-    @GetMapping(value = "/save-booking", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Booking> saveBooking2(@RequestParam("userId") int userId,
-                                                @RequestParam("bookId") int bookId){
-        Booking booking = new Booking(new CompositePK(userId, bookId));
-        return new ResponseEntity<>(booking, HttpStatus.OK);
+    @GetMapping(value = "/save-booking-param", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Booking1> saveBooking2(@RequestParam("userId") Integer userId,
+                                                @RequestParam("bookId") Integer bookId){
+        Booking1 booking = new Booking1(userId, bookId);
+//        return new ResponseEntity<>(booking, HttpStatus.OK);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
+
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(booking);
     }
 
     /*@PostMapping(value = "/save-user")
